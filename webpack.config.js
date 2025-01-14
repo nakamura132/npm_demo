@@ -6,7 +6,7 @@ module.exports = {
 	// development に設定するとソースマップ有効でJSファイルが出力される
 	mode: "development",
 	// メインとなるJavascriptファイル (エントリーポイント)
-	entry: `./src/js/index.js`,
+	entry: `./src/index.js`,
 
 	// ファイルの出力設定
 	output: {
@@ -16,7 +16,7 @@ module.exports = {
 		filename: "main.js"
 	},
 	resolve: {
-		extensions: [".ts", ".tsx", ".js", ".json"],
+		extensions: [".ts", ".tsx", ".js", ".jsx"],
 	},
 	target: ["web", "es5"],
 	devServer: {
@@ -26,6 +26,13 @@ module.exports = {
 	},
 	module: {
 		rules: [
+			{
+				test: /\.(js|jsx)$/,
+				exclude: /node_modules/,
+				use: {
+					loader: "babel-loader",
+				},
+			},
 			{
 				test: /\.css/,
 				use: [
@@ -41,7 +48,7 @@ module.exports = {
 	},
 	plugins: [
 		new HtmlWebpackPlugin ({
-			title: "Try webpack",
+			title: "React App",
 			template: path.resolve(__dirname, "./src/index.html"),
 			filename: "index.html",
 		}),
